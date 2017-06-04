@@ -8,25 +8,16 @@
 		<div class="col-md-8 col-md-offset-4">
 			<h1>Create new Post</h1>
 
-			@if($errors)
-				<ul>
-					@foreach($errors->all() as $error)
-						<li>{{ $error }}</li>
-					@endforeach
-				</ul>
-			@endif
+			<form method="POST" action="/posts" accept-charset="UTF-8">
+				<input type="hidden" name="_token" value="{{ csrf_token() }}">
+				<label for="title">Title:</label>
+				<input class="form-control" name="title" type="text" id="title">
 
-			{!! Form::open(array('route' => 'posts.store')) !!}
-				{{ Form::label('title', 'Title:') }}
-				{{ Form::text('title', null, array('class' => 'form-control')) }}
+				<label for="body">Post Body:</label>
+				<textarea class="form-control" style="margin-bottom: 20px" name="body" cols="50" rows="10" id="body"></textarea>
 
-				{{ Form::label('body', 'Post Body:') }}
-				{{ Form::textarea('body', null, array('class' => 'form-control', 'style' => 'margin-bottom: 20px')) }}
-
-				{{ Form::submit('Create Post', array('class' => 'btn btn-success btn-lg btn-block'))}}
-
-
-			{!! Form::close() !!}
+				<input class="btn btn-success btn-lg btn-block" type="submit" value="Create Post">
+			</form>
 		</div>
 	</div>
 @endsection

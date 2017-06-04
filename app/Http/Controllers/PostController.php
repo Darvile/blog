@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 // use App\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Post;
+use Session;
 
 class PostController extends Controller
 {
@@ -51,6 +52,8 @@ class PostController extends Controller
 
         $post->save();
 
+        Session::flash('success', 'The blog post was successfully saved!');
+
         return redirect()->route('posts.show', $post->id);
 
         // redirect to another page
@@ -63,8 +66,9 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($id)
-    {
-        // 
+    {   
+        $post = Post::find($id);
+        return view('posts.show')->withPost($post);
     }
 
     /**
