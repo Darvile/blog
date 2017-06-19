@@ -10,6 +10,11 @@
 	</div>
 	<div class="col-md-4">
 		<dl class="dl-horizotal">
+			<dt>Url:</dt>
+			<dd><a href="{{ url($post->slug) }}">{{ url($post->slug) }}</a></dd>
+		</dl>
+
+		<dl class="dl-horizotal">
 			<dt>Created at:</dt>
 			<dd>{{ date('M, j, Y h: ia', strtotime($post->created_at)) }}</dd>
 		</dl>
@@ -28,9 +33,11 @@
 			</div>
 
 			<div class="col-sm-6">
-				<a href="{{ route('posts.destroy', $post->id) }}" class="btn btn-danger btn-block">
-					Delete
-				</a>
+				<form method="POST" action="{{ route('posts.destroy', $post->id) }}">
+				    <input type="submit" value="Delete" class="btn btn-danger btn-block">
+				    <input type="hidden" name="_token" value="{{ Session::token() }}">
+				   {{ method_field('DELETE') }}
+				</form>﻿
 			</div>
 		</div>
 	</div>
